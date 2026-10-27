@@ -28,17 +28,28 @@ export const AuthProvider = ({ children }) => {
   const login = async data => {
     try {
       const response = await fetch("http://localhost:8000/api/login", {
+        credentials: "include",
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
-      const result = await response.json();
-      if (result) {
-        setUser(result);
+
+      if (!response.ok) {
+        const err = await response.json();
+        throw new Error(err.message || "Login failed");
       }
-      throw new Error(result.message);
+
+      const meResponse = await fetch("http://localhost:8000/api/user", {
+        credentials: "include",
+        method: "GET",
+      });
+      if (!meResponse.ok) {
+        throw new Error("Failed to fetch user");
+      }
+      const res = await meResponse.json();
+      setUser(res);
     } catch (error) {
       console.log(error);
     }
