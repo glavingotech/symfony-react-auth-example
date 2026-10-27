@@ -13,7 +13,7 @@ lexik_jwt_authentication:
     # token extraction settings
     token_extractors:
         cookie:
-            enabled: false
+            enabled: true
             name: BEARER
 
         # check token in a cookie

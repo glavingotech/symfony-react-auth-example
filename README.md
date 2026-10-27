@@ -16,11 +16,17 @@ Dans un terminal au niveau du `docker-compose.yml` lancer la commande :
 
 `docker compose up -d`
 
+### 3 - Créer les clef SSL
+
+Générer les clefs SSL pour le JWT dans le back
+
+`docker exec <NOM_DU_CONTENEUR_BACK> php bin/console lexik:jwt:generate-keypair`
+
 ## Les migrations
 
 Pour mettre en place la base de donnée côté backend, lancer les migrations avec la commande :
 
-`docker exec <NOM_DU_CONTENEUR> php bin/console doctrine:migrations:migrate`
+`docker exec <NOM_DU_CONTENEUR_BACK> php bin/console doctrine:migrations:migrate`
 
 Pour obtenir le nom du conteneur back vous pouvez lancer la commande :
 
