@@ -13,13 +13,14 @@ final class UserController extends AbstractController
     public function __construct(private Security $security)
     {
     }
+
     #[Route('/api/user', name: 'app_user', methods:['GET'])]
     public function __invoke()
-    {  
+    {
        $user = $this->security->getUser();
        return $this->json([
-        'username'=>$user->getUsername(),
+        'username'=>$user->getEmail(),
         'uuid'=>$user->getUuid()
-       ]); 
+       ]);
     }
 }
